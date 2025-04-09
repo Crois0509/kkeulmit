@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AAF17DE22DA64488000119B7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAF17DE12DA64488000119B7 /* SnapKit */; };
+		AAF17DE52DA644D1000119B7 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = AAF17DE42DA644D1000119B7 /* Lottie */; };
+		AAF17DE82DA644E9000119B7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AAF17DE72DA644E9000119B7 /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		AAF17DBE2DA63314000119B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +71,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAF17DE82DA644E9000119B7 /* Alamofire in Frameworks */,
+				AAF17DE22DA64488000119B7 /* SnapKit in Frameworks */,
+				AAF17DE52DA644D1000119B7 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +134,9 @@
 			);
 			name = kkeulmit;
 			packageProductDependencies = (
+				AAF17DE12DA64488000119B7 /* SnapKit */,
+				AAF17DE42DA644D1000119B7 /* Lottie */,
+				AAF17DE72DA644E9000119B7 /* Alamofire */,
 			);
 			productName = kkeulmit;
 			productReference = AAF17DA72DA63313000119B7 /* kkeulmit.app */;
@@ -208,6 +220,11 @@
 			);
 			mainGroup = AAF17D9E2DA63313000119B7;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				AAF17DE02DA64488000119B7 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				AAF17DE32DA644D1000119B7 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				AAF17DE62DA644E9000119B7 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AAF17DA82DA63313000119B7 /* Products */;
 			projectDirPath = "";
@@ -294,7 +311,6 @@
 				INFOPLIST_FILE = kkeulmit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -322,7 +338,6 @@
 				INFOPLIST_FILE = kkeulmit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -571,6 +586,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AAF17DE02DA64488000119B7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		AAF17DE32DA644D1000119B7 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
+		AAF17DE62DA644E9000119B7 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AAF17DE12DA64488000119B7 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAF17DE02DA64488000119B7 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		AAF17DE42DA644D1000119B7 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAF17DE32DA644D1000119B7 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		AAF17DE72DA644E9000119B7 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAF17DE62DA644E9000119B7 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AAF17D9F2DA63313000119B7 /* Project object */;
 }
