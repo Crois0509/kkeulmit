@@ -1,4 +1,4 @@
-# 끌밋(kkeulmit)
+# <img width="40" height="40" src="https://github.com/user-attachments/assets/0414693f-de04-4b9e-a4e9-f509227423e3"> 끌밋(kkeulmit)
 
 **🎯프로젝트 목적**: 날씨에 따른 옷차림 추천 앱
 
@@ -32,6 +32,9 @@
 
 ***
 
-## Project Structure
+## 💻 Project Structure
+
+### 1. App Flow
+![App Flow](https://github.com/user-attachments/assets/a427c655-121e-4abe-87fe-762af0028353)
 
 ***
