@@ -6,14 +6,44 @@
 //
 
 import UIKit
+import SnapKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        setupUI()
     }
-
 
 }
 
+// MARK: - UI Setting Method
+
+private extension MainViewController {
+    
+    func setupUI() {
+        setupLaunch()
+        configureSelf()
+        setupLayout()
+    }
+    
+    func configureSelf() {
+        view.backgroundColor = .cyan
+    }
+    
+    func setupLayout() {
+
+    }
+    
+    func setupLaunch() {
+        let launchVC = LaunchViewController()
+        addChild(launchVC)
+        view.addSubview(launchVC.view)
+        launchVC.view.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        launchVC.didMove(toParent: self)
+    }
+    
+}
