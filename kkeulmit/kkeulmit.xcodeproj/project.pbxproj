@@ -302,6 +302,8 @@
 /* Begin XCBuildConfiguration section */
 		AAF17DD12DA63314000119B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = AAF17DA92DA63313000119B7 /* kkeulmit */;
+			baseConfigurationReferenceRelativePath = APIKey.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -329,6 +331,8 @@
 		};
 		AAF17DD22DA63314000119B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = AAF17DA92DA63313000119B7 /* kkeulmit */;
+			baseConfigurationReferenceRelativePath = APIKey.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
