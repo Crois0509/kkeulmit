@@ -47,9 +47,8 @@ private extension DetailView {
     
     func configureSelf() {
         backgroundColor = .clear
-        [tempView, detailView, lottieIcon].forEach {
-            addSubview($0)
-        }
+        clipsToBounds = true
+        addSubviews([tempView, detailView, lottieIcon])
     }
     
     func setupLayout() {
@@ -60,9 +59,9 @@ private extension DetailView {
         }
         
         detailView.snp.makeConstraints {
-            $0.leading.equalToSuperview()
-            $0.top.equalTo(tempView.snp.bottom).offset(16)
+            $0.bottom.leading.equalToSuperview()
             $0.trailing.equalTo(tempView)
+            $0.height.equalTo(40)
         }
         
         lottieIcon.snp.makeConstraints {
@@ -76,7 +75,7 @@ private extension DetailView {
         label.text = text
         label.font = .SCDream(size: size, weight: weight)
         label.textColor = .black
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.textAlignment = .left
         label.backgroundColor = .clear
         
