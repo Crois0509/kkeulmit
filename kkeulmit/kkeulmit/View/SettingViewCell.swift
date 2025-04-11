@@ -23,6 +23,12 @@ final class SettingViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleView.text = ""
+    }
+    
     func configCell(_ title: String) {
         titleView.text = title
     }

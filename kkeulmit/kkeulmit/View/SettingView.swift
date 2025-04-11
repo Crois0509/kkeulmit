@@ -76,7 +76,9 @@ private extension SettingView {
 }
 
 extension SettingView: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        debugPrint("\(indexPath.row) 선택")
+    }
 }
 
 extension SettingView: UITableViewDataSource {
