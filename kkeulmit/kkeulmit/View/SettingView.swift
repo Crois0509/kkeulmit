@@ -22,6 +22,8 @@ final class SettingView: UIView {
         (title: "앱 리뷰하기", view: nil)
     ]
     
+    weak var modalDelegate: ModalPresentDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -78,6 +80,14 @@ private extension SettingView {
 extension SettingView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         debugPrint("\(indexPath.row) 선택")
+        
+        if let view = settingModels[indexPath.row].view as? SettingLabelView {
+            let type = view.sendCurrentType()
+            modalDelegate?.showModal(type)
+            
+        } else if let view = settingModels[indexPath.row].view as? ColorView {
+            
+        }
     }
 }
 

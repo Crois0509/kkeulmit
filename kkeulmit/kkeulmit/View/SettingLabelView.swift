@@ -9,7 +9,10 @@ import UIKit
 
 final class SettingLabelView: UILabel {
     
+    private let type: LabelType
+    
     init(_ type: LabelType) {
+        self.type = type
         super.init(frame: .zero)
         
         if let label = UserDefaults.standard.string(forKey: type.rawValue) {
@@ -27,6 +30,10 @@ final class SettingLabelView: UILabel {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func sendCurrentType() -> LabelType {
+        return type
     }
     
 }

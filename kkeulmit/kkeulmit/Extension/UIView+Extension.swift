@@ -21,7 +21,7 @@ extension UIView {
         layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    func addSubviews(_ views: [UIView]) {
+    func addSubviews(_ views: UIView...) {
         views.forEach {
             addSubview($0)
         }

@@ -28,6 +28,7 @@ final class MainViewController: UIViewController {
 private extension MainViewController {
     
     func setupUI() {
+        setupBottomView()
         configureSelf()
         setupLayout()
         setupLaunch()
@@ -36,7 +37,7 @@ private extension MainViewController {
     func configureSelf() {
         view.backgroundColor = .white
         view.setGradientBackground([UIColor.PersonalBlue.light, .white], startPoint: .init(x: 0.5, y: 0), endPoint: .init(x: 0.5, y: 1))
-        view.addSubviews([logo, topView, tempsView, bottomView])
+        view.addSubviews(logo, topView, tempsView, bottomView)
     }
     
     func setupLayout() {
@@ -64,6 +65,10 @@ private extension MainViewController {
         }
     }
     
+    func setupBottomView() {
+        bottomView.modalDelegate = self
+    }
+    
     func setupLaunch() {
         let launchVC = LaunchViewController()
         addChild(launchVC)
@@ -73,6 +78,14 @@ private extension MainViewController {
         }
         view.bringSubviewToFront(launchVC.view)
         launchVC.didMove(toParent: self)
+    }
+    
+}
+
+extension MainViewController: ModalPresentDelegate {
+    func showModal(_ type: LabelType) {
+        let modalVC = ModalViewController(type)
+        self.present(modalVC, animated: true)
     }
     
 }

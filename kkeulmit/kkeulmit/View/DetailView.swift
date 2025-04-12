@@ -48,7 +48,7 @@ private extension DetailView {
     func configureSelf() {
         backgroundColor = .clear
         clipsToBounds = true
-        addSubviews([tempView, detailView, lottieIcon])
+        addSubviews(tempView, detailView, lottieIcon)
     }
     
     func setupLayout() {

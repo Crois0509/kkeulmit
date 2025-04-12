@@ -36,11 +36,11 @@ final class SettingViewCell: UITableViewCell {
     func configExtraView(_ view: UIView?) {
         guard let view else { return }
         
-        containerView.layoutIfNeeded()
         containerView.addSubview(view)
         
         view.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(16)
+            $0.leading.lessThanOrEqualTo(titleView.snp.trailing)
             $0.centerY.equalToSuperview()
             $0.height.equalTo(25)
             $0.width.greaterThanOrEqualTo(25)
@@ -62,7 +62,8 @@ private extension SettingViewCell {
     
     func configureSelf() {
         backgroundColor = .clear
-        addSubview(containerView)
+        contentView.backgroundColor = .clear
+        contentView.addSubview(containerView)
     }
     
     func setupLayout() {
@@ -72,7 +73,7 @@ private extension SettingViewCell {
         }
         
         titleView.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
             $0.centerY.equalToSuperview()
         }
     }

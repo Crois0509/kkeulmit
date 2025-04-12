@@ -45,7 +45,7 @@ private extension LaunchView {
     
     func configureSelf() {
         backgroundColor = .white
-        addSubviews([lottieAnimationView, titleView])
+        addSubviews(lottieAnimationView, titleView)
     }
     
     func setupLayout() {

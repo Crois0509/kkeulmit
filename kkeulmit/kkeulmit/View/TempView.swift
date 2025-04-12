@@ -42,7 +42,7 @@ private extension TempView {
     func configureSelf() {
         backgroundColor = state.bgColor
         layer.cornerRadius = 16
-        addSubviews([info, temp])
+        addSubviews(info, temp)
     }
     
     func setupLayout() {
