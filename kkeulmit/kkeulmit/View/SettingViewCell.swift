@@ -27,6 +27,11 @@ final class SettingViewCell: UITableViewCell {
         super.prepareForReuse()
         
         titleView.text = ""
+        if containerView.subviews.count > 1 {
+            let view = containerView.subviews.last
+            view?.snp.removeConstraints()
+            view?.removeFromSuperview()
+        }
     }
     
     func configCell(_ title: String) {

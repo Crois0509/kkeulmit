@@ -13,14 +13,16 @@ final class SettingView: UIView {
     
     private let tableView = UITableView(frame: .zero, style: .plain)
     
-    private let settingModels: [SettingModel] = [
-        (title: "오늘의 추천 컬러", view: ColorView()),
-        (title: "알람 시간", view: SettingLabelView(.time)),
-        (title: "반복 주기", view: SettingLabelView(.weak)),
-        (title: "기온에 따른 옷차림 정보", view: nil),
-        (title: "문의하기", view: nil),
-        (title: "앱 리뷰하기", view: nil)
-    ]
+    private var settingModels: [SettingModel] {
+        [
+            (title: "오늘의 추천 컬러", view: ColorView()),
+            (title: "알람 시간", view: SettingLabelView(.time)),
+            (title: "반복 주기", view: SettingLabelView(.weak)),
+            (title: "기온에 따른 옷차림 정보", view: nil),
+            (title: "문의하기", view: nil),
+            (title: "앱 리뷰하기", view: nil)
+        ]
+    }
     
     weak var modalDelegate: ModalPresentDelegate?
     
@@ -34,10 +36,8 @@ final class SettingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        tableView.reloadData()
+    func reloadTableView(_ indexPath: IndexPath) {
+        tableView.reloadRows(at: [indexPath], with: .fade)
     }
     
 }
@@ -83,7 +83,7 @@ extension SettingView: UITableViewDelegate {
         
         if let view = settingModels[indexPath.row].view as? SettingLabelView {
             let type = view.sendCurrentType()
-            modalDelegate?.showModal(type)
+            modalDelegate?.showModal(type, indexPath)
             
         } else if let view = settingModels[indexPath.row].view as? ColorView {
             

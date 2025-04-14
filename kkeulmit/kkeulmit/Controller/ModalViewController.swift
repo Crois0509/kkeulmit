@@ -14,8 +14,12 @@ final class ModalViewController: UIViewController {
     private let buttons = ButtonStackView()
     
     private let modalHeight: CGFloat
+    private let modalState: LabelType
+    
+    var deinitClosure: (() -> Void)?
     
     init(_ type: LabelType) {
+        self.modalState = type
         self.modalView = ModalView(type)
         self.modalHeight = type == .time ? 320 : 180
         super.init(nibName: nil, bundle: nil)
@@ -29,6 +33,10 @@ final class ModalViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+    }
+    
+    deinit {
+        debugPrint(Self.self, "deinit")
     }
 }
 
@@ -82,6 +90,28 @@ extension ModalViewController: ButtonsDelegate {
     
     func activeButtonTapped() {
         debugPrint(#function)
+        
+        switch modalState {
+        case .time:
+            let time = modalView.sendInputData().first ?? ""
+            UserDefaults.standard.set(time, forKey: modalState.rawValue)
+            
+        case .weak:
+            var weaks: String
+            let data = modalView.sendInputData()
+            
+            if data.count == 0 {
+                weaks = "없음"
+            } else if data.count == 7 {
+                weaks = "매일 반복"
+            } else {
+                weaks = data.joined(separator: ", ")
+            }
+                
+            UserDefaults.standard.set(weaks, forKey: modalState.rawValue)
+        }
+        
+        deinitClosure?()
         self.dismiss(animated: true)
     }
     

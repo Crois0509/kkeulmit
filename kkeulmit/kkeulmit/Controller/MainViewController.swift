@@ -83,8 +83,13 @@ private extension MainViewController {
 }
 
 extension MainViewController: ModalPresentDelegate {
-    func showModal(_ type: LabelType) {
+    func showModal(_ type: LabelType, _ indexPath: IndexPath) {
         let modalVC = ModalViewController(type)
+        
+        modalVC.deinitClosure = { [weak self] in
+            self?.bottomView.reloadTableView(indexPath)
+        }
+        
         self.present(modalVC, animated: true)
     }
     

@@ -10,8 +10,32 @@ import SnapKit
 
 final class ModalView: UIView {
     
-    private let datePicker = UIDatePicker()
-    private let weakView = UIStackView()
+    private lazy var datePicker = UIDatePicker()
+    private lazy var weakView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    
+    private let weaks: [String] = ["월", "화", "수", "목", "금", "토", "일"]
+    
+    private var layout: UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/7),
+                                              heightDimension: .fractionalHeight(1)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                               heightDimension: .fractionalHeight(1)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       repeatingSubitem: item,
+                                                       count: 7
+        )
+        group.interItemSpacing = .fixed(8)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        return layout
+    }
     
     private let modalType: LabelType
     
@@ -24,6 +48,30 @@ final class ModalView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func sendInputData() -> [String] {
+        switch modalType {
+        case .time:
+            let date = datePicker.date.formattedString()
+            return [date]
+            
+        case .weak:
+            var select: [String] = []
+            let items = weakView.numberOfItems(inSection: 0)
+            
+            for i in 0..<items {
+                let indexPath = IndexPath(row: i, section: 0)
+                
+                guard let cell = weakView.cellForItem(at: indexPath) as? WeakCell,
+                      let time = cell.cellSelected()
+                else { continue }
+                
+                select.append(time)
+            }
+            
+            return select
+        }
     }
     
 }
@@ -72,35 +120,36 @@ private extension ModalView {
     
     func setupWeakView() {
         guard modalType == .weak else { return }
-        weakView.axis = .horizontal
-        weakView.spacing = 8
-        weakView.alignment = .fill
-        weakView.distribution = .fillEqually
+        weakView.delegate = self
+        weakView.dataSource = self
+        weakView.isScrollEnabled = false
+        weakView.showsVerticalScrollIndicator = false
+        weakView.showsHorizontalScrollIndicator = false
         weakView.backgroundColor = .clear
-        
-        createSubViews().forEach {
-            weakView.addArrangedSubview($0)
-        }
+        weakView.register(WeakCell.self, forCellWithReuseIdentifier: "WeakCell")
     }
     
-    func createSubViews() -> [UIButton] {
-        let weaks = ["월", "화", "수", "목", "금", "토", "일"]
-        var buttons = [UIButton]()
+}
+
+extension ModalView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? WeakCell else { return }
+        cell.toggleDidSelectedState()
+    }
+}
+
+extension ModalView: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return weaks.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeakCell", for: indexPath) as? WeakCell else { return UICollectionViewCell() }
         
-        weaks.forEach {
-            let button = UIButton()
-            button.setTitle($0, for: .normal)
-            button.setTitleColor(.black, for: .normal)
-            button.titleLabel?.font = .SCDream(size: 12, weight: .regular)
-            button.backgroundColor = .white
-            button.layer.cornerRadius = 8
-            button.layer.borderWidth = 0.5
-            button.layer.borderColor = UIColor.black.withAlphaComponent(0.3).cgColor
-            
-            buttons.append(button)
-        }
+        cell.configCell(weaks[indexPath.item])
         
-        return buttons
+        return cell
     }
     
 }
