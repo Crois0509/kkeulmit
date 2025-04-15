@@ -17,8 +17,14 @@ final class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UserDefaults.standard.set(10, forKey: "temp")
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = true
     }
 
 }
@@ -35,6 +41,7 @@ private extension MainViewController {
     }
     
     func configureSelf() {
+        navigationItem.title = ""
         view.backgroundColor = .white
         view.setGradientBackground([UIColor.PersonalBlue.light, .white], startPoint: .init(x: 0.5, y: 0), endPoint: .init(x: 0.5, y: 1))
         view.addSubviews(logo, topView, tempsView, bottomView)
@@ -67,6 +74,7 @@ private extension MainViewController {
     
     func setupBottomView() {
         bottomView.modalDelegate = self
+        bottomView.detailDelegate = self
     }
     
     func setupLaunch() {
@@ -93,4 +101,10 @@ extension MainViewController: ModalPresentDelegate {
         self.present(modalVC, animated: true)
     }
     
+}
+
+extension MainViewController: PushViewControllerDelegate {
+    func push(_ VC: UIViewController) {
+        navigationController?.pushViewController(VC, animated: true)
+    }
 }

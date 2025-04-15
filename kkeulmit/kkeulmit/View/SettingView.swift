@@ -25,6 +25,7 @@ final class SettingView: UIView {
     }
     
     weak var modalDelegate: ModalPresentDelegate?
+    weak var detailDelegate: PushViewControllerDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,8 +86,13 @@ extension SettingView: UITableViewDelegate {
             let type = view.sendCurrentType()
             modalDelegate?.showModal(type, indexPath)
             
-        } else if let view = settingModels[indexPath.row].view as? ColorView {
+        } else if let _ = settingModels[indexPath.row].view as? ColorView {
+            let detailVC = DetailViewController(view: RecommendColorView())
+            detailDelegate?.push(detailVC)
             
+        } else if indexPath.row == 3 {
+            let detailVC = DetailViewController(view: RecommendClothesView())
+            detailDelegate?.push(detailVC)
         }
     }
 }
