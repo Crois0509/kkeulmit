@@ -116,6 +116,7 @@ private extension ModalView {
         datePicker.locale = Locale(identifier: "ko_KR")
         datePicker.setDate(Date(), animated: true)
         datePicker.backgroundColor = .clear
+        datePicker.overrideUserInterfaceStyle = .light
     }
     
     func setupWeakView() {
