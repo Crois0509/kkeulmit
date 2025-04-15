@@ -93,6 +93,23 @@ extension SettingView: UITableViewDelegate {
         } else if indexPath.row == 3 {
             let detailVC = DetailViewController(view: RecommendClothesView())
             detailDelegate?.push(detailVC)
+        } else if indexPath.row == 4 {
+            modalDelegate?.showMailViewController()
+            
+        } else if indexPath.row == 5 {
+            let pageUrl = "appstorePageLink" // TODO: AppStore 출시 후 링크 수정
+            if let url = URL(string: pageUrl), UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+                debugPrint(url, "이동")
+                
+            } else {
+                debugPrint("페이지 이동 실패", "\(pageUrl)은 이동할 수 없는 URL 입니다.")
+            }
+            
         }
     }
 }

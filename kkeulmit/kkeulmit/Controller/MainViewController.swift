@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import MessageUI
 
 final class MainViewController: UIViewController {
     
@@ -17,7 +18,7 @@ final class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDefaults.standard.set(10, forKey: "temp")
+        
         setupUI()
     }
     
@@ -91,6 +92,7 @@ private extension MainViewController {
 }
 
 extension MainViewController: ModalPresentDelegate {
+    
     func showModal(_ type: LabelType, _ indexPath: IndexPath) {
         let modalVC = ModalViewController(type)
         
@@ -101,10 +103,33 @@ extension MainViewController: ModalPresentDelegate {
         self.present(modalVC, animated: true)
     }
     
+    func showMailViewController() {
+        guard MFMailComposeViewController.canSendMail() else {
+            print("📭 이메일을 보낼 수 없습니다. 디바이스에 메일 계정이 설정되어 있지 않을 수 있어요.")
+            return
+        }
+
+        let mail = MFMailComposeViewController()
+        mail.mailComposeDelegate = self
+        mail.setToRecipients(["crois0509@icloud.com"]) // 받는 사람
+        mail.setSubject("끌밋 문의사항") // 제목
+        mail.setMessageBody("요약:\n\n내용:", isHTML: false) // 본문
+
+        present(mail, animated: true)
+    }
+    
 }
 
 extension MainViewController: PushViewControllerDelegate {
     func push(_ VC: UIViewController) {
         navigationController?.pushViewController(VC, animated: true)
+    }
+}
+
+extension MainViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult,
+                               error: Error?) {
+        controller.dismiss(animated: true)
     }
 }

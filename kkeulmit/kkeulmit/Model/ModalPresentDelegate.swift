@@ -9,4 +9,5 @@ import UIKit
 
 protocol ModalPresentDelegate: AnyObject {
     func showModal(_ type: LabelType, _ indexPath: IndexPath)
+    func showMailViewController()
 }
