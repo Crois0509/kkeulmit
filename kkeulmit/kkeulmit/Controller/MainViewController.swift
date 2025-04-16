@@ -15,8 +15,12 @@ final class MainViewController: UIViewController {
     private let topView = DetailView()
     private let tempsView = TempsStackView()
     private let bottomView = SettingView()
+    private let refreshButton = UIButton()
+    private let activityIndicator = UIActivityIndicatorView()
     
     private let apiManager: APIManagable
+    
+    private var isFetched: Bool = false
     
     init(_ managable: APIManagable) {
         self.apiManager = managable
@@ -50,6 +54,8 @@ final class MainViewController: UIViewController {
 private extension MainViewController {
     
     func setupUI() {
+        setupActivityView()
+        setupRefreshButton()
         setupBottomView()
         configureSelf()
         setupLayout()
@@ -60,7 +66,7 @@ private extension MainViewController {
         navigationItem.title = ""
         view.backgroundColor = .white
         view.setGradientBackground([UIColor.PersonalBlue.light, .white], startPoint: .init(x: 0.5, y: 0), endPoint: .init(x: 0.5, y: 1))
-        view.addSubviews(logo, topView, tempsView, bottomView)
+        view.addSubviews(logo, topView, tempsView, bottomView, refreshButton, activityIndicator)
     }
     
     func setupLayout() {
@@ -86,11 +92,42 @@ private extension MainViewController {
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
         }
+        
+        refreshButton.snp.makeConstraints {
+            $0.centerY.equalTo(logo)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.height.equalTo(30)
+        }
+        
+        activityIndicator.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     func setupBottomView() {
         bottomView.modalDelegate = self
         bottomView.detailDelegate = self
+    }
+    
+    func setupRefreshButton() {
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+        let image = UIImage(systemName: "arrow.clockwise", withConfiguration: config)
+        refreshButton.setImage(image, for: .normal)
+        refreshButton.tintColor = .PersonalBlue.dark
+        refreshButton.backgroundColor = .clear
+        refreshButton.addTarget(self, action: #selector(refreshFetch), for: .touchUpInside)
+    }
+    
+    @objc func refreshFetch() {
+        isFetched = true
+        showActivityIndicator()
+        
+        Task {
+            try await geminiFetch()
+            DispatchQueue.main.async {
+                self.showActivityIndicator()
+            }
+        }
     }
     
     func setupLaunch() {
@@ -104,7 +141,32 @@ private extension MainViewController {
         launchVC.didMove(toParent: self)
     }
     
+    func setupActivityView() {
+        activityIndicator.alpha = 0
+        activityIndicator.color = .white
+        activityIndicator.style = .large
+        activityIndicator.backgroundColor = .black.withAlphaComponent(0.3)
+        activityIndicator.isHidden = true
+    }
+    
+    func showActivityIndicator() {
+        UIView.animate(withDuration: 0.3) {
+            if self.isFetched {
+                self.activityIndicator.isHidden = false
+                self.activityIndicator.startAnimating()
+                self.activityIndicator.alpha = 1
+                
+            } else {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.alpha = 0
+                self.activityIndicator.isHidden = true
+            }
+        }
+    }
+    
     func geminiFetch() async throws {
+        isFetched = true
+        
         do {
             if let text = try await apiManager.geminiFetch(),
                let weather = apiManager.decodeWeather(from: text) {
@@ -121,14 +183,25 @@ private extension MainViewController {
                     UserDefaults.standard.set(weather.temp, forKey: "temp")
                     UserDefaults.standard.set(weather.recommendation, forKey: "recommendation")
                     UserDefaults.standard.set(color, forKey: "color")
+                    
+                    self.isFetched = false
                 }
                 
             } else {
                 debugPrint("🚨 Gemini 호출 값이 비어있음")
+                DispatchQueue.main.async {
+                    self.isFetched = false
+                    
+                    let alert = UIAlertController(title: "알림", message: "현재 날씨 데이터를 받아올 수 없습니다.\n잠시 후 다시 시도해 주세요.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "확인", style: .cancel))
+                    
+                    self.present(alert, animated: true)
+                }
             }
             
         } catch {
             debugPrint(error.localizedDescription)
+            self.isFetched = false
         }
     }
     
