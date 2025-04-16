@@ -25,11 +25,11 @@ final class DetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configDetailView(_ data: DetailModel) {
+    func configDetailView(_ temp: Double, _ detail: String, _ icon: String) {
         lottieIcon.stop()
-        tempView.text = "평균 기온: \(data.temp)°C"
-        detailView.text = data.detail
-        lottieIcon.animation = LottieAnimation.named(WeatherIconModel.customWeatherIcons(data.icon) ?? LottieModels.clearDay.lottieString)
+        tempView.text = "평균 기온: \(temp.as1DecimalString)°C"
+        detailView.text = detail
+        lottieIcon.animation = LottieAnimation.named(WeatherIconModel.customWeatherIcons(icon) ?? LottieModels.clearDay.lottieString)
         lottieIcon.play()
     }
     

@@ -30,8 +30,9 @@ final class TempsStackView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configTempView() {
-        
+    func configTempView(_ min: Double, _ max: Double) {
+        minTempView.configTemp(min)
+        maxTempView.configTemp(max)
     }
     
 }

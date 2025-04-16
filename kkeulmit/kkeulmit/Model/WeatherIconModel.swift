@@ -22,6 +22,8 @@ enum WeatherIconModel {
             "02n": "extreme-night",
             "03d": "overcast",
             "03n": "extreme",
+            "04d": "overcast",
+            "04n": "extreme",
             "09d": "overcast-rain",
             "09n": "extreme-rain",
             "10d": "overcast-day-rain",

@@ -37,7 +37,11 @@ final class SettingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func reloadTableView(_ indexPath: IndexPath) {
+    func reloadTableView(_ indexPath: IndexPath?) {
+        guard let indexPath else {
+            tableView.reloadData()
+            return
+        }
         tableView.reloadRows(at: [indexPath], with: .fade)
     }
     

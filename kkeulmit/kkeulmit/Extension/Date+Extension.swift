@@ -17,4 +17,12 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    func formattedDate() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.timeZone = TimeZone(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter.string(from: self)
+    }
+    
 }

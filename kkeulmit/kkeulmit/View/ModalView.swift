@@ -114,9 +114,12 @@ private extension ModalView {
         datePicker.datePickerMode = .time
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.locale = Locale(identifier: "ko_KR")
-        datePicker.setDate(Date(), animated: true)
         datePicker.backgroundColor = .clear
         datePicker.overrideUserInterfaceStyle = .light
+        
+        let date = UserDefaults.standard.string(forKey: "time")
+        let time = date == nil ? Date() : date!.formattedDate()
+        datePicker.setDate(time, animated: true)
     }
     
     func setupWeakView() {

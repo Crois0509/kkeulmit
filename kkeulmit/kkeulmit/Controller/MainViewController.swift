@@ -15,11 +15,26 @@ final class MainViewController: UIViewController {
     private let topView = DetailView()
     private let tempsView = TempsStackView()
     private let bottomView = SettingView()
-
+    
+    private let apiManager: APIManagable
+    
+    init(_ managable: APIManagable) {
+        self.apiManager = managable
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
+        
+        Task {
+             try await geminiFetch()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,6 +102,30 @@ private extension MainViewController {
         }
         view.bringSubviewToFront(launchVC.view)
         launchVC.didMove(toParent: self)
+    }
+    
+    func geminiFetch() async throws {
+        do {
+            if let text = try await apiManager.geminiFetch(),
+               let weather = apiManager.decodeWeather(from: text) {
+                
+                DispatchQueue.main.async {
+                    self.topView.configDetailView(weather.temp, weather.recommendation, weather.weather)
+                    self.tempsView.configTempView(weather.minTemp, weather.maxTemp)
+                    self.bottomView.reloadTableView(nil)
+                    let color = weather.color.uiColor.encode()
+                    UserDefaults.standard.set(weather.temp, forKey: "temp")
+                    UserDefaults.standard.set(weather.recommendation, forKey: "recommendation")
+                    UserDefaults.standard.set(color, forKey: "color")
+                }
+                
+            } else {
+                debugPrint("🚨 Gemini 호출 값이 비어있음")
+            }
+            
+        } catch {
+            debugPrint(error.localizedDescription)
+        }
     }
     
 }

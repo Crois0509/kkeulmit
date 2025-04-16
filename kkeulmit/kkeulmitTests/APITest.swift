@@ -25,7 +25,7 @@ final class APITest: XCTestCase {
     func testGetMethod() async throws {
         // given & when
         do {
-            let data = try await sut.fetch()
+            let data = try await sut.weatherFetch()
             
             // then
             debugPrint("✅ 날씨 데이터 변환 성공, 데이터 수:", data.list.count)
@@ -34,6 +34,21 @@ final class APITest: XCTestCase {
             debugPrint("🚨 날씨 데이터 변환 실패", error.localizedDescription)
             XCTFail("API 요청 실패: \(error)")
         }
+    }
+    
+    func testGeminiMethod() async throws {
+        // given & when
+        do {
+            let weather = try await sut.geminiFetch()
+            
+            // then
+            debugPrint(weather ?? "")
+            XCTAssertNotNil(weather)
+        } catch {
+            debugPrint("🚨 Gemini 호출 실패", error.localizedDescription)
+            XCTFail("GeminiAPI 요청 실패: \(error)")
+        }
+        
     }
 
 

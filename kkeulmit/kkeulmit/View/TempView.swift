@@ -26,6 +26,10 @@ final class TempView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configTemp(_ temp: Double) {
+        self.temp.text = "\(temp.as1DecimalString)°C"
+    }
+    
 }
 
 // MARK: - UI Setting Method
