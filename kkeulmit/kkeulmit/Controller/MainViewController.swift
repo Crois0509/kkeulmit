@@ -113,6 +113,10 @@ private extension MainViewController {
                     self.topView.configDetailView(weather.temp, weather.recommendation, weather.weather)
                     self.tempsView.configTempView(weather.minTemp, weather.maxTemp)
                     self.bottomView.reloadTableView(nil)
+                    
+                    let bgColor = WeatherIconModel.customBgColor(weather.weather)
+                    self.view.setGradientBackground([bgColor, .white], startPoint: .init(x: 0.5, y: 0), endPoint: .init(x: 0.5, y: 1))
+                    
                     let color = weather.color.uiColor.encode()
                     UserDefaults.standard.set(weather.temp, forKey: "temp")
                     UserDefaults.standard.set(weather.recommendation, forKey: "recommendation")
