@@ -34,4 +34,32 @@ struct Wind: Decodable {
     let speed: Double           // 풍속(m/s)
 }
 
+extension WeatherModel {
+    func asText() -> String {
+        list.map { $0.asText() }.joined(separator: "\n\n")
+    }
+}
+
+extension ForecastItem {
+    func asText() -> String {
+        let date = Date(timeIntervalSince1970: dt)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+
+        let dateString = formatter.string(from: date)
+        let weatherText = weather.first?.main ?? "Unknown"
+        let weatherDesc = weather.first?.description ?? "N/A"
+        let icon = weather.first?.icon ?? "?"
+
+        return """
+        📅 시간: \(dateString)
+        🌡️ 현재 기온: \(main.temp)℃
+        🔻 최저 기온: \(main.temp_min)℃
+        🔺 최고 기온: \(main.temp_max)℃
+        ☁️ 날씨: \(weatherText) (\(weatherDesc))
+        💨 풍속: \(wind.speed)m/s
+        🖼️ 아이콘 코드: \(icon)
+        """
+    }
+}
 

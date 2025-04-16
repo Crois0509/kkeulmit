@@ -4,6 +4,8 @@
 <dict>
 	<key>APIKey</key>
 	<string>$(APIKey)</string>
+	<key>GeminiKey</key>
+	<string>$(GeminiKey)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SCDream1.otf</string>

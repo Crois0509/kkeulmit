@@ -45,9 +45,7 @@ private extension LaunchView {
     
     func configureSelf() {
         backgroundColor = .white
-        [lottieAnimationView, titleView].forEach {
-            addSubview($0)
-        }
+        addSubviews(lottieAnimationView, titleView)
     }
     
     func setupLayout() {
@@ -66,7 +64,7 @@ private extension LaunchView {
     func setupTitle() {
         titleView.text = "끌밋"
         titleView.font = .SCDream(size: 80, weight: .bold)
-        titleView.textColor = .Blue.dark
+        titleView.textColor = .PersonalBlue.dark
         titleView.numberOfLines = 1
         titleView.textAlignment = .center
         titleView.backgroundColor = .clear
