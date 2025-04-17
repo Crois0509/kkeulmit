@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AAEC34062DB0C5FE00B950CD /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = AAEC34052DB0C5FE00B950CD /* Lottie */; };
 		AAF17DE22DA64488000119B7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAF17DE12DA64488000119B7 /* SnapKit */; };
-		AAF17DE52DA644D1000119B7 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = AAF17DE42DA644D1000119B7 /* Lottie */; };
 		AAF17DE82DA644E9000119B7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AAF17DE72DA644E9000119B7 /* Alamofire */; };
+		AAF1843E2DAF730A000119B7 /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = AAF1843D2DAF730A000119B7 /* GoogleGenerativeAI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +74,8 @@
 			files = (
 				AAF17DE82DA644E9000119B7 /* Alamofire in Frameworks */,
 				AAF17DE22DA64488000119B7 /* SnapKit in Frameworks */,
-				AAF17DE52DA644D1000119B7 /* Lottie in Frameworks */,
+				AAF1843E2DAF730A000119B7 /* GoogleGenerativeAI in Frameworks */,
+				AAEC34062DB0C5FE00B950CD /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,8 +137,9 @@
 			name = kkeulmit;
 			packageProductDependencies = (
 				AAF17DE12DA64488000119B7 /* SnapKit */,
-				AAF17DE42DA644D1000119B7 /* Lottie */,
 				AAF17DE72DA644E9000119B7 /* Alamofire */,
+				AAF1843D2DAF730A000119B7 /* GoogleGenerativeAI */,
+				AAEC34052DB0C5FE00B950CD /* Lottie */,
 			);
 			productName = kkeulmit;
 			productReference = AAF17DA72DA63313000119B7 /* kkeulmit.app */;
@@ -212,18 +215,20 @@
 				};
 			};
 			buildConfigurationList = AAF17DA22DA63313000119B7 /* Build configuration list for PBXProject "kkeulmit" */;
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = AAF17D9E2DA63313000119B7;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				AAF17DE02DA64488000119B7 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				AAF17DE32DA644D1000119B7 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				AAF17DE62DA644E9000119B7 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				AAF1843C2DAF730A000119B7 /* XCRemoteSwiftPackageReference "deprecated-generative-ai-swift" */,
+				AAEC34042DB0C5FE00B950CD /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AAF17DA82DA63313000119B7 /* Products */;
@@ -301,6 +306,8 @@
 /* Begin XCBuildConfiguration section */
 		AAF17DD12DA63314000119B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = AAF17DA92DA63313000119B7 /* kkeulmit */;
+			baseConfigurationReferenceRelativePath = APIKey.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -313,6 +320,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -328,6 +336,8 @@
 		};
 		AAF17DD22DA63314000119B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = AAF17DA92DA63313000119B7 /* kkeulmit */;
+			baseConfigurationReferenceRelativePath = APIKey.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -340,6 +350,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -358,6 +369,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -422,6 +434,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -588,20 +601,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AAEC34042DB0C5FE00B950CD /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
 		AAF17DE02DA64488000119B7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.7.1;
-			};
-		};
-		AAF17DE32DA644D1000119B7 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.5.1;
 			};
 		};
 		AAF17DE62DA644E9000119B7 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
@@ -612,23 +625,36 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		AAF1843C2DAF730A000119B7 /* XCRemoteSwiftPackageReference "deprecated-generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google-gemini/deprecated-generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AAEC34052DB0C5FE00B950CD /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAEC34042DB0C5FE00B950CD /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		AAF17DE12DA64488000119B7 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AAF17DE02DA64488000119B7 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		AAF17DE42DA644D1000119B7 /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AAF17DE32DA644D1000119B7 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
-		};
 		AAF17DE72DA644E9000119B7 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AAF17DE62DA644E9000119B7 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		AAF1843D2DAF730A000119B7 /* GoogleGenerativeAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAF1843C2DAF730A000119B7 /* XCRemoteSwiftPackageReference "deprecated-generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
