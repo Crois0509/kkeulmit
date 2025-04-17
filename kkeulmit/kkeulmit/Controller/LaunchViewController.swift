@@ -31,6 +31,17 @@ final class LaunchViewController: UIViewController {
                 self?.removeFromParent()
             })
         }
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted {
+                print("✅ 알림 권한 허용됨")
+                UserDefaults.standard.set(true, forKey: "alarm")
+            } else {
+                print("❌ 알림 권한 거부됨: \(error?.localizedDescription ?? "")")
+                UserDefaults.standard.set(false, forKey: "alarm")
+            }
+        }
+
     }
 
     deinit {

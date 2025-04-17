@@ -8,5 +8,5 @@
 import Foundation
 
 enum LabelType: String {
-    case time, weak
+    case time, week
 }
