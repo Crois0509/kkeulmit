@@ -8,11 +8,13 @@
 import UIKit
 
 struct WeatherResponse: Decodable {
-    let minTemp: Double
-    let maxTemp: Double
-    let temp: Double
+    let todayMinTemp: Double
+    let todayMaxTemp: Double
+    let todayTemp: Double
+    let yesterdayTemp: Double
     let weather: String
-    let recommendation: String
+    let todayRecommendation: String
+    let yesterdayRecommendation: String
     let color: ColorComponents
 
     struct ColorComponents: Decodable {

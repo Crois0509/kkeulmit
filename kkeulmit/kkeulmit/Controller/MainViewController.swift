@@ -172,17 +172,19 @@ private extension MainViewController {
                let weather = apiManager.decodeWeather(from: text) {
                 
                 DispatchQueue.main.async {
-                    self.topView.configDetailView(weather.temp, weather.recommendation, weather.weather)
-                    self.tempsView.configTempView(weather.minTemp, weather.maxTemp)
+                    self.topView.configDetailView(weather.todayTemp, weather.todayRecommendation, weather.weather)
+                    self.tempsView.configTempView(weather.todayMinTemp, weather.todayMaxTemp)
                     self.bottomView.reloadTableView(nil)
                     
                     let bgColor = WeatherIconModel.customBgColor(weather.weather)
                     self.view.setGradientBackground([bgColor, .white], startPoint: .init(x: 0.5, y: 0), endPoint: .init(x: 0.5, y: 1))
                     
                     let color = weather.color.uiColor.encode()
-                    UserDefaults.standard.set(weather.temp, forKey: "temp")
-                    UserDefaults.standard.set(weather.recommendation, forKey: "recommendation")
+                    UserDefaults.standard.set(weather.todayTemp, forKey: "temp")
+                    UserDefaults.standard.set(weather.todayRecommendation, forKey: "recommendation")
                     UserDefaults.standard.set(color, forKey: "color")
+                    UserDefaults.standard.set(weather.yesterdayTemp, forKey: "yesterdayTemp")
+                    UserDefaults.standard.set(weather.yesterdayRecommendation, forKey: "yesterdayRecommendation")
                     
                     self.isFetched = false
                 }

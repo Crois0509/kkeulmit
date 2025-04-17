@@ -43,12 +43,14 @@ final class APIManager: APIManagable {
                 
                 JSON 데이터는 단 하나만 반환하도록 해.
                 
-                {
-                  "minTemp": Double, // 최저 기온
-                  "maxTemp": Double, // 최고 기온
-                  "temp": Double, // 평균 기온
+                {                  
+                  "todayMinTemp": Double, // 오늘의 최저 기온
+                  "todayMaxTemp": Double, // 오늘의 최고 기온
+                  "todayTemp": Double, // 오늘의 평균 기온
+                  "yesterdayTemp": Double, // 내일의 평균 기온
                   "weather": String, // 날씨 코드(예시: 01d)
-                  "recommendation": String, // 추천 옷차림을 서술어 형식으로 공손하고 구체적으로, 최대 공백 포함 50글자 이내로(ex: 날씨가 좋으니 긴팔 옷을 추천해요)
+                  "todayRecommendation": String, // 오늘 날씨를 분석해서 추천 옷차림을 서술어 형식으로 공손하고 구체적으로, 최대 공백 포함 50글자 이내로(ex: 날씨가 좋으니 긴팔 옷을 추천해요)
+                  "yesterdayRecommendation": String, // 내일 날씨를 분석해서 추천 옷차림을 서술어 형식으로 공손하고 구체적으로, 최대 공백 포함 50글자 이내로(ex: 날씨가 좋으니 긴팔 옷을 추천해요)
                   "color": {
                     "red": CGFloat,
                     "green": CGFloat,
@@ -74,15 +76,17 @@ final class APIManager: APIManagable {
     }
     
     func weatherFetch() async throws -> WeatherModel {
-        let url = "https://api.openweathermap.org/data/2.5/forecast"
-        
         guard let apiKey = Bundle.main.infoDictionary?["APIKey"] as? String else {
             throw NSError(domain: "APIKeyError", code: 0, userInfo: [NSLocalizedDescriptionKey: "APIKey가 없습니다."])
         }
         
+        var lat: Double = UserDefaults.standard.double(forKey: "lat")
+        var lon: Double = UserDefaults.standard.double(forKey: "lon")
+        
+        let url = "https://api.openweathermap.org/data/2.5/forecast"
         let parameters: Parameters = [
-            "lat": "37.566",               // 위도 (서울 기준)
-            "lon": "126.9784",             // 경도 (서울 기준)
+            "lat": "\(lat)",               // 위도 (서울 기준)
+            "lon": "\(lon)",             // 경도 (서울 기준)
             "appid": apiKey,               // OpenWeather API 키
             "units": "metric",             // 섭씨(℃) 단위로 받기
             "lang": "kr"                   // 한국어 설명 받기 (선택)

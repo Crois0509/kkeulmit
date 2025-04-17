@@ -26,6 +26,7 @@ final class AlarmManager {
     
     func scheduleAnAlarm() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests() // 기존 알람 전체 삭제
+        debugPrint("🚨 기존 알람 전체 삭제...")
         
         let date = selectedTimeString.formattedDate()
         let hour = calendar.component(.hour, from: date)
@@ -39,8 +40,8 @@ final class AlarmManager {
             
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
             
-            let recommend = UserDefaults.standard.string(forKey: "recommendation") ?? ""
-            let temp = UserDefaults.standard.double(forKey: "temp").as1DecimalString
+            let recommend = UserDefaults.standard.string(forKey: "yesterdayRecommendation") ?? ""
+            let temp = UserDefaults.standard.double(forKey: "yesterdayTemp").as1DecimalString
             
             let content = UNMutableNotificationContent()
             content.title = "오늘의 옷차림을 추천해 드릴게요!"
@@ -49,6 +50,7 @@ final class AlarmManager {
             
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request)
+            debugPrint("✅ 새로운 알람 등록됨", request.identifier)
         }
     }
 }

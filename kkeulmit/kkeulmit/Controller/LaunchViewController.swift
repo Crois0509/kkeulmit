@@ -11,6 +11,8 @@ import SnapKit
 final class LaunchViewController: UIViewController {
     
     private let launchView = LaunchView()
+    
+    private let locationManager = LocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +43,18 @@ final class LaunchViewController: UIViewController {
                 UserDefaults.standard.set(false, forKey: "alarm")
             }
         }
+        
+        locationManager.onLocationUpdate = { location in
+            if let location {
+                UserDefaults.standard.set(location.latitude, forKey: "lat")
+                UserDefaults.standard.set(location.longitude, forKey: "lon")
+            } else {
+                UserDefaults.standard.set(37.566, forKey: "lat")
+                UserDefaults.standard.set(126.9784, forKey: "lon")
+            }
+        }
+        
+        locationManager.requestLocation()
 
     }
 
