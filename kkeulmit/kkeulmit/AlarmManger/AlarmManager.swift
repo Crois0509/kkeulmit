@@ -26,6 +26,7 @@ final class AlarmManager {
     
     func scheduleAnAlarm() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests() // 기존 알람 전체 삭제
+        debugPrint("🚨 기존 알람 전체 삭제...")
         
         let date = selectedTimeString.formattedDate()
         let hour = calendar.component(.hour, from: date)
@@ -49,6 +50,7 @@ final class AlarmManager {
             
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request)
+            debugPrint("✅ 새로운 알람 등록됨", request.identifier)
         }
     }
 }

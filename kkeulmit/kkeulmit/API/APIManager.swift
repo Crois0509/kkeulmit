@@ -76,15 +76,17 @@ final class APIManager: APIManagable {
     }
     
     func weatherFetch() async throws -> WeatherModel {
-        let url = "https://api.openweathermap.org/data/2.5/forecast"
-        
         guard let apiKey = Bundle.main.infoDictionary?["APIKey"] as? String else {
             throw NSError(domain: "APIKeyError", code: 0, userInfo: [NSLocalizedDescriptionKey: "APIKey가 없습니다."])
         }
         
+        var lat: Double = UserDefaults.standard.double(forKey: "lat")
+        var lon: Double = UserDefaults.standard.double(forKey: "lon")
+        
+        let url = "https://api.openweathermap.org/data/2.5/forecast"
         let parameters: Parameters = [
-            "lat": "37.566",               // 위도 (서울 기준)
-            "lon": "126.9784",             // 경도 (서울 기준)
+            "lat": "\(lat)",               // 위도 (서울 기준)
+            "lon": "\(lon)",             // 경도 (서울 기준)
             "appid": apiKey,               // OpenWeather API 키
             "units": "metric",             // 섭씨(℃) 단위로 받기
             "lang": "kr"                   // 한국어 설명 받기 (선택)
