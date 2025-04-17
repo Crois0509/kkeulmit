@@ -1,5 +1,5 @@
 //
-//  WeakCell.swift
+//  WeekCell.swift
 //  kkeulmit
 //
 //  Created by 장상경 on 4/12/25.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class WeakCell: UICollectionViewCell {
+final class WeekCell: UICollectionViewCell {
     
     private let label = UILabel()
     
@@ -29,9 +29,9 @@ final class WeakCell: UICollectionViewCell {
     
     func configCell(_ text: String) {
         label.text = text
-        let weak = UserDefaults.standard.string(forKey: "weak")
+        let week = UserDefaults.standard.string(forKey: "week")
         
-        if weak?.contains(text) == true || weak == "매일 반복" {
+        if week?.contains(text) == true || week == "매일 반복" {
             didSelect = true
             selectCell()
         }

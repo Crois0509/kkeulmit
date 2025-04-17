@@ -11,9 +11,9 @@ import SnapKit
 final class ModalView: UIView {
     
     private lazy var datePicker = UIDatePicker()
-    private lazy var weakView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    private lazy var weekView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
-    private let weaks: [String] = ["월", "화", "수", "목", "금", "토", "일"]
+    private let weeks: [String] = ["월", "화", "수", "목", "금", "토", "일"]
     
     private var layout: UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/7),
@@ -56,14 +56,14 @@ final class ModalView: UIView {
             let date = datePicker.date.formattedString()
             return [date]
             
-        case .weak:
+        case .week:
             var select: [String] = []
-            let items = weakView.numberOfItems(inSection: 0)
+            let items = weekView.numberOfItems(inSection: 0)
             
             for i in 0..<items {
                 let indexPath = IndexPath(row: i, section: 0)
                 
-                guard let cell = weakView.cellForItem(at: indexPath) as? WeakCell,
+                guard let cell = weekView.cellForItem(at: indexPath) as? WeekCell,
                       let time = cell.cellSelected()
                 else { continue }
                 
@@ -82,7 +82,7 @@ private extension ModalView {
     
     func setupUI() {
         setupDatePicker()
-        setupWeakView()
+        setupWeekView()
         configureSelf()
         setupLayout()
     }
@@ -92,7 +92,7 @@ private extension ModalView {
         if modalType == .time {
             addSubview(datePicker)
         } else {
-            addSubview(weakView)
+            addSubview(weekView)
         }
     }
     
@@ -103,7 +103,7 @@ private extension ModalView {
             }
             
         } else {
-            weakView.snp.makeConstraints {
+            weekView.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
         }
@@ -122,22 +122,22 @@ private extension ModalView {
         datePicker.setDate(time, animated: true)
     }
     
-    func setupWeakView() {
-        guard modalType == .weak else { return }
-        weakView.delegate = self
-        weakView.dataSource = self
-        weakView.isScrollEnabled = false
-        weakView.showsVerticalScrollIndicator = false
-        weakView.showsHorizontalScrollIndicator = false
-        weakView.backgroundColor = .clear
-        weakView.register(WeakCell.self, forCellWithReuseIdentifier: "WeakCell")
+    func setupWeekView() {
+        guard modalType == .week else { return }
+        weekView.delegate = self
+        weekView.dataSource = self
+        weekView.isScrollEnabled = false
+        weekView.showsVerticalScrollIndicator = false
+        weekView.showsHorizontalScrollIndicator = false
+        weekView.backgroundColor = .clear
+        weekView.register(WeekCell.self, forCellWithReuseIdentifier: "WeekCell")
     }
     
 }
 
 extension ModalView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? WeakCell else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? WeekCell else { return }
         cell.toggleDidSelectedState()
     }
 }
@@ -145,13 +145,13 @@ extension ModalView: UICollectionViewDelegate {
 extension ModalView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return weaks.count
+        return weeks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeakCell", for: indexPath) as? WeakCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeekCell", for: indexPath) as? WeekCell else { return UICollectionViewCell() }
         
-        cell.configCell(weaks[indexPath.item])
+        cell.configCell(weeks[indexPath.item])
         
         return cell
     }

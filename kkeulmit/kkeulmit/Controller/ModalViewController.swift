@@ -96,21 +96,22 @@ extension ModalViewController: ButtonsDelegate {
             let time = modalView.sendInputData().first ?? ""
             UserDefaults.standard.set(time, forKey: modalState.rawValue)
             
-        case .weak:
-            var weaks: String
+        case .week:
+            var weeks: String
             let data = modalView.sendInputData()
             
             if data.count == 0 {
-                weaks = "없음"
+                weeks = "없음"
             } else if data.count == 7 {
-                weaks = "매일 반복"
+                weeks = "매일 반복"
             } else {
-                weaks = data.joined(separator: ", ")
+                weeks = data.joined(separator: ", ")
             }
                 
-            UserDefaults.standard.set(weaks, forKey: modalState.rawValue)
+            UserDefaults.standard.set(weeks, forKey: modalState.rawValue)
         }
         
+        AlarmManager().scheduleAnAlarm()
         deinitClosure?()
         self.dismiss(animated: true)
     }

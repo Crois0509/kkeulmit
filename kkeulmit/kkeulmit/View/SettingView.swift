@@ -17,7 +17,7 @@ final class SettingView: UIView {
         [
             (title: "오늘의 추천 컬러", view: ColorView()),
             (title: "알람 시간", view: SettingLabelView(.time)),
-            (title: "반복 주기", view: SettingLabelView(.weak)),
+            (title: "반복 주기", view: SettingLabelView(.week)),
             (title: "기온에 따른 옷차림 정보", view: nil),
             (title: "문의하기", view: nil),
             (title: "앱 리뷰하기", view: nil)
