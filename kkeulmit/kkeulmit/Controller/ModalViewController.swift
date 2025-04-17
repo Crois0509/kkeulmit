@@ -111,7 +111,6 @@ extension ModalViewController: ButtonsDelegate {
             UserDefaults.standard.set(weeks, forKey: modalState.rawValue)
         }
         
-        AlarmManager().scheduleAnAlarm()
         deinitClosure?()
         self.dismiss(animated: true)
     }
