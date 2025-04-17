@@ -39,8 +39,8 @@ final class AlarmManager {
             
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
             
-            let recommend = UserDefaults.standard.string(forKey: "recommendation") ?? ""
-            let temp = UserDefaults.standard.double(forKey: "temp").as1DecimalString
+            let recommend = UserDefaults.standard.string(forKey: "yesterdayRecommendation") ?? ""
+            let temp = UserDefaults.standard.double(forKey: "yesterdayTemp").as1DecimalString
             
             let content = UNMutableNotificationContent()
             content.title = "오늘의 옷차림을 추천해 드릴게요!"
